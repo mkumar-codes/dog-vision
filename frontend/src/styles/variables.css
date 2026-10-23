@@ -1,0 +1,53 @@
+:root{
+    color-scheme: light dark;
+
+    --color-primary: #3B5BA9;
+    --color-primary-hover: #2F4A8C;
+    --color-on-primary: #FFFFFF;
+    /* Image scanner: the dark-mode accent, kept light in both modes so it glows over the photo */
+    --color-scan: #7C9BE0;
+    --color-bg: #F7F7F7;
+    --color-surface: #FFFFFF;
+    --color-border: #E0E0E0;
+
+    --color-text: #333333;
+    --color-text-muted: #6B6B6B;
+    --color-success: #4CAF50;
+    --color-error: #F44336;
+
+    --space-1: 4px;
+    --space-2: 8px;
+    --space-3: 16px;
+    --space-4: 24px;
+    --space-5: 32px;
+    --space-6: 40px;
+
+    --radius-sm: 4px;
+    --radius-md: 8px;
+    --radius-full: 9999px;
+
+    --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.1);
+    --transition-fast: 0.2s ease-in-out;
+
+    --font-sans: 'Helvetica Neue', Arial, sans-serif;
+
+}
+
+/* Only colors change in dark mode; spacing, radius and fonts stay the same */
+@media (prefers-color-scheme: dark){
+    :root{
+        --color-primary: #7C9BE0;
+        --color-primary-hover: #93AEEA;
+        --color-on-primary: #0A0A0A;
+        --color-bg: #121212;
+        --color-surface: #1E1E1E;
+        --color-border: #333333;
+
+        --color-text: #EDEDED;
+        --color-text-muted: #A0A0A0;
+        --color-success: #66BB6A;
+        --color-error: #EF5350;
+
+        --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.4);
+    }
+}

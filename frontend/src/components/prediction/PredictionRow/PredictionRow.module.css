@@ -1,0 +1,55 @@
+.row{
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+    animation: fadeUp 0.35s ease-out var(--delay, 0ms) both;
+}
+
+.header{
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: var(--space-2);
+}
+
+.rank{
+    flex-shrink: 0;
+    width: 1.5em;
+    font-weight: 600;
+    color: var(--color-text-muted);
+}
+
+.breed{
+    flex: 1;
+    min-width: 0;
+    font-weight: 600;
+    overflow-wrap: anywhere; /* long breed names wrap instead of overflowing on phones */
+}
+
+.percent{
+    flex-shrink: 0;
+    font-variant-numeric: tabular-nums;
+    color: var(--color-text-muted);
+}
+
+.md .breed{
+    font-size: 1rem;
+}
+
+.lg .breed{
+    font-size: clamp(1.5rem, 5vw, 2rem);
+    line-height: 1.2;
+}
+
+.lg .percent{
+    font-size: 1.125rem;
+    font-weight: 600;
+    color: var(--color-primary);
+}
+
+@keyframes fadeUp{
+    from{
+        opacity: 0;
+        transform: translateY(6px);
+    }
+}

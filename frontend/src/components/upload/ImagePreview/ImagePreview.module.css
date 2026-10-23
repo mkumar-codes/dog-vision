@@ -1,0 +1,112 @@
+.frame{
+    position: relative;
+    overflow: hidden;
+    border-radius: var(--radius-md);
+    background-color: var(--color-bg);
+}
+
+.image{
+    width: 100%;
+    aspect-ratio: 1;
+    object-fit: cover;
+}
+
+/* Darkens the photo slightly, tints it blue and draws a faint grid */
+.overlay{
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    padding: var(--space-4);
+    background:
+        repeating-linear-gradient(0deg, color-mix(in srgb, var(--color-scan) 8%, transparent) 0 1px, transparent 1px 24px),
+        repeating-linear-gradient(90deg, color-mix(in srgb, var(--color-scan) 8%, transparent) 0 1px, transparent 1px 24px),
+        color-mix(in srgb, var(--color-scan) 10%, rgba(0, 0, 0, 0.35));
+    animation: fadeIn 0.25s ease-out;
+}
+
+/* Four L-shaped corner brackets, like a camera viewfinder */
+.corners{
+    --size: 28px;
+    --thickness: 3px;
+    --c: linear-gradient(var(--color-scan), var(--color-scan));
+    position: absolute;
+    inset: var(--space-3);
+    background:
+        var(--c) top left / var(--size) var(--thickness),
+        var(--c) top left / var(--thickness) var(--size),
+        var(--c) top right / var(--size) var(--thickness),
+        var(--c) top right / var(--thickness) var(--size),
+        var(--c) bottom left / var(--size) var(--thickness),
+        var(--c) bottom left / var(--thickness) var(--size),
+        var(--c) bottom right / var(--size) var(--thickness),
+        var(--c) bottom right / var(--thickness) var(--size);
+    background-repeat: no-repeat;
+    filter: drop-shadow(0 0 4px var(--color-scan));
+    animation: pulse 1.6s ease-in-out infinite;
+}
+
+/* The bright neon beam, with a fading trail above it, moving top to bottom */
+.scanLine{
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    height: 2px;
+    background-color: var(--color-scan);
+    box-shadow:
+        0 0 6px 1px var(--color-scan),
+        0 0 18px 4px var(--color-scan),
+        0 0 40px 8px color-mix(in srgb, var(--color-scan) 50%, transparent);
+    animation: scan 2s cubic-bezier(0.45, 0, 0.55, 1) infinite;
+}
+
+.scanLine::before{
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 100%;
+    height: 80px;
+    background: linear-gradient(to top, color-mix(in srgb, var(--color-scan) 35%, transparent), transparent);
+}
+
+.badge{
+    position: relative;
+    padding: var(--space-1) var(--space-3);
+    font-family: ui-monospace, 'SFMono-Regular', Menlo, monospace;
+    font-size: 0.8125rem;
+    font-weight: 600;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--color-scan);
+    text-shadow: 0 0 8px var(--color-scan);
+    background-color: rgba(0, 0, 0, 0.6);
+    border: 1px solid color-mix(in srgb, var(--color-scan) 60%, transparent);
+    border-radius: var(--radius-full);
+    box-shadow: 0 0 12px color-mix(in srgb, var(--color-scan) 40%, transparent);
+    backdrop-filter: blur(4px);
+    animation: pulse 1.2s ease-in-out infinite;
+}
+
+@keyframes scan{
+    from{
+        top: 0;
+    }
+    to{
+        top: 100%;
+    }
+}
+
+@keyframes pulse{
+    50%{
+        opacity: 0.55;
+    }
+}
+
+@keyframes fadeIn{
+    from{
+        opacity: 0;
+    }
+}
