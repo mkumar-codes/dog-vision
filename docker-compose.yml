@@ -1,0 +1,23 @@
+services:
+  backend:
+    build: ./backend
+    container_name: dog-vision-backend
+    ports:
+      - "8000:8000"
+    environment:
+      ALLOWED_ORIGINS: http://localhost:3000
+    restart: unless-stopped
+
+  frontend:
+    build:
+      context: ./frontend
+      args:
+        # The browser calls the API directly, so this is the address on YOUR machine,
+        # not the container name
+        VITE_API_URL: http://localhost:8000
+    container_name: dog-vision-frontend
+    ports:
+      - "3000:80"
+    depends_on:
+      - backend
+    restart: unless-stopped

@@ -1,0 +1,9 @@
+# Only app.py, requirements.txt and the one model the API uses go into the image
+__pycache__/
+*.pyc
+*.ipynb
+.ipynb_checkpoints/
+models/test.py
+models/1000-images-model.h5
+models/full-dog-vision.h5
+.env

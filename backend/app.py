@@ -26,7 +26,9 @@ LABELS_PATH = os.path.join(BASE_DIR, "models", "labels.npy")
 
 IMG_SIZE = 224
 TOP_K = 5
-ALLOWED_ORIGINS = ["http://localhost:3000"]
+# Comma-separated list of frontend URLs allowed to call the API,
+# e.g. "http://localhost:3000,https://dog-vision.netlify.app"
+ALLOWED_ORIGINS = os.getenv("ALLOWED_ORIGINS", "http://localhost:3000").split(",")
 
 
 # ---------------------------------------------------------------------------
@@ -66,6 +68,7 @@ def load_labels(labels_path):
 
 model = load_model(MODEL_PATH)
 unique_breeds = load_labels(LABELS_PATH)
+logger.info("Allowed CORS origins: %s", ", ".join(ALLOWED_ORIGINS))
 
 
 # ---------------------------------------------------------------------------
