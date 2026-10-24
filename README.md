@@ -2,7 +2,7 @@
 
 Upload a photo of a dog and Dog Vision tells you which of **120 dog breeds** it is, along with how confident the model is and the 5 most likely breeds.
 
-![Uploading image.png…]()
+<img width="1123" height="755" alt="image" src="https://github.com/user-attachments/assets/b618f131-00b7-4513-9528-27279aa49549" />
 
 
 - **Backend:** a FastAPI service that runs a TensorFlow image classifier.
