@@ -2,6 +2,9 @@
 
 Upload a photo of a dog and Dog Vision tells you which of **120 dog breeds** it is, along with how confident the model is and the 5 most likely breeds.
 
+![Uploading image.png…]()
+
+
 - **Backend:** a FastAPI service that runs a TensorFlow image classifier.
 - **Frontend:** a responsive React app with drag-and-drop upload, a scanning animation while it predicts, and confidence bars for the results.
 
