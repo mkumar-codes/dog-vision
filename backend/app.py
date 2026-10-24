@@ -94,8 +94,11 @@ def preprocess_image(image_bytes):
     """Turns raw image bytes into a (1, 224, 224, 3) float tensor, like the notebook."""
     # Decodes JPEG, PNG, GIF or BMP into 3 RGB channels
     image = tf.io.decode_image(image_bytes, channels=3, expand_animations=False)
-    image = tf.image.convert_image_dtype(image, tf.float32)  # 0-255 -> 0-1
+
+    # Resize first, then scale 0-255 -> 0-1. Gives the same values as the notebook's
+    # scale-then-resize, but a 12 MP phone photo never becomes a ~145 MB float tensor
     image = tf.image.resize(image, [IMG_SIZE, IMG_SIZE])
+    image = image / 255.0
 
     return tf.expand_dims(image, 0)  # add the batch dimension
 
@@ -116,7 +119,14 @@ async def predict_probabilities(file: UploadFile):
         logger.warning("Could not decode image: name=%s", file.filename)
         raise HTTPException(status_code=400, detail="The uploaded file is not a valid image.")
 
-    probabilities = model.predict(image, verbose=0)[0]
+    try:
+        # Calling the model directly is lighter than model.predict() for a single image
+        probabilities = model(image, training=False).numpy()[0]
+    except Exception:
+        # Raising HTTPException (instead of crashing) keeps the CORS headers on the
+        # response, so the browser can show a proper error instead of a network error
+        logger.exception("Inference failed: name=%s", file.filename)
+        raise HTTPException(status_code=500, detail="Something went wrong while analyzing the image.")
 
     logger.info("Inference took %.0f ms", (time.perf_counter() - start) * 1000)
     return probabilities

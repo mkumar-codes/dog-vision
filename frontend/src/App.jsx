@@ -1,5 +1,7 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
+import { wakeUpServer } from './api/client'
 import { predictBreed, predictTop5 } from './api/predictions'
+import { prepareImage } from './utils/image'
 import { useAsync } from './hooks/useAsync'
 import { useImagePreview } from './hooks/useImagePreview'
 import Button from './components/ui/Button/Button'
@@ -17,6 +19,10 @@ function App() {
   const top5 = useAsync(predictTop5)
   const [uploadError, setUploadError] = useState('')
 
+  useEffect(() => {
+    wakeUpServer()
+  }, [])
+
   // Any new image or reset clears all previous results
   const clearResults = () => {
     prediction.reset()
@@ -24,9 +30,9 @@ function App() {
     setUploadError('')
   }
 
-  const handleSelect = (newFile) => {
+  const handleSelect = async (newFile) => {
     clearResults()
-    selectImage(newFile)
+    selectImage(await prepareImage(newFile))
   }
 
   const handleReset = () => {
